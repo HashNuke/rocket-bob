@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Moon Lander</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <%= yield :head if content_for? :head %>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      var stats = new Stats();
+      stats.domElement.style.position = "fixed";
+      stats.domElement.style.top  = "0px";
+      stats.domElement.style["z-index"] = "100";
+      $("body").append(stats.domElement);
+
+      var rendererType = (ML.Utils.hasWebgl() && !ML.Utils.isIpad()) ? "webgl" : "canvas";
+      world = new ML.World(".viewer", rendererType, stats);
+      world.render();
+    })
+  </script>
+</head>
+<body>
+
+  <div class="viewer"></div>
+
+</body>
+</html>
