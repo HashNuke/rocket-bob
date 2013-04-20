@@ -32,3 +32,18 @@ class ML.Voxel
       new THREE.MeshBasicMaterial(materialOptions)
 
     @createObjectFor(@size, @materials)
+
+  greenColor: (@size)->
+    @materials = for color in [0x9ED864, 0x80CC33, 0x33CC33]
+      materialOptions = { color: color }
+      new THREE.MeshBasicMaterial(materialOptions)
+
+    @createObjectFor(@size, @materials)    
+
+
+  brownColor: (@size)->
+    @materials = for color in [0xD0C48A, 0xE5DEBD, 0xDED5AB]
+      materialOptions = { color: color }
+      new THREE.MeshBasicMaterial(materialOptions)
+
+    @createObjectFor(@size, @materials)

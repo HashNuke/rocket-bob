@@ -3,9 +3,22 @@ class ML.World
     width:  if window? then window.innerWidth  else 640
     height: if window? then window.innerHeight else 480
 
+  basePlatformHeight:   -50
+  secondPlatformHeight: 100
+
   rendererType: "webgl"
 
   constructor: (@holder, @rendererType, @stats)->
+    @midSector1 = [
+      @secondPlatformHeight - (2 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6),
+      @secondPlatformHeight - (3 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6)
+    ]
+
+    @midSector2 = [
+      @secondPlatformHeight - (3 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6),
+      @secondPlatformHeight - (4 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6)
+    ]
+
     @opts.width = $(@holder).width()
 
     @scene = new THREE.Scene()
@@ -41,7 +54,14 @@ class ML.World
 
   render: ()=>
     @renderer.render @scene, @camera
-    @player.object.position.y -= 0.25 if !@player.hasLanded()
+
+    if !@player.hasLanded()
+      @player.object.position.y -= 0.25
+      if @player.object.position.y > @midSector1[0] && @player.object.position.y > @midSector1[1]
+        @camera.position.z -= 0.25
+      if @player.object.position.y > @midSector2[0] && @player.object.position.y > @midSector2[1]
+        @camera.position.z += 0.25
+
     @camera.lookAt(@player.object.position)
     window.requestAnimationFrame(@render)
     @stats.update()
@@ -62,8 +82,8 @@ class ML.World
 
   setupCamera: ->
     @camera = new THREE.PerspectiveCamera(60, (@opts.width /@opts.height), 1, 20000)
-    @camera.position = {x: 0, y: @player.object.position.y + 5, z: 67}
-    @camera.lookAt({x: 0, y:0, z:0})
+    @camera.position = {x: 0, y: 5, z: 20}
+    @camera.lookAt(@player.object.position)
     @
 
 

@@ -5,7 +5,7 @@ class ML.Player
 
   constructor: (@world) ->
     @object = new ML.Voxel("red", 5)
-    @object.position = ({ x: 0, y: 40, z: 0 })
+    @object.position = ({ x: 0, y: @world.secondPlatformHeight, z: 0 })
     @world.scene.add @object
     @
 
