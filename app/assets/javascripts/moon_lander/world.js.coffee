@@ -31,28 +31,6 @@ class ML.World
 
     $(window).on("resize", @windowResizeHandler)
 
-    $("body").on "click", "canvas", (e)=>
-      @projector = new THREE.Projector()
-      mouseX = +(e.clientX / window.innerWidth ) * 2 - 1
-      mouseY = -(e.clientY / window.innerHeight) * 2 + 1
-
-      vector  = new THREE.Vector3( mouseX, mouseY, 1 )
-      @projector.unprojectVector( vector, @camera )
-
-      vector.sub( @camera.position ).normalize()
-      raycaster  = new THREE.Raycaster( @camera.position, vector )
-      intersects = raycaster.intersectObjects( @scene.children )
-
-      return if intersects.length == 0
-
-      intersect = intersects[0]
-      object3d  = intersect.object
-      console.log "You've hit #{object3d.name}"
-      # objectCtx = this._objectCtxGet(object3d)
-      # if( !objectCtx )  return
-
-
-
 
   windowResizeHandler: =>
     @camera.aspect = $(@holder).width() / window.innerHeight
