@@ -8,7 +8,7 @@ class ML.World
 
   rendererType: "webgl"
 
-  constructor: (@holder, @rendererType, @stats)->
+  constructor: (@holder, @rendererType, @player, @stats)->
     @midSector1 = [
       @secondPlatformHeight - (2 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6),
       @secondPlatformHeight - (3 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6)
@@ -24,21 +24,21 @@ class ML.World
     @scene = new THREE.Scene()
     @clock = new THREE.Clock()
 
-    @addPlayer()
     @setupRenderer()
     @setupCamera()
     @setupListeners()
 
-    terrain = new ML.Terrain(@)
-
+    new ML.Terrain(@)
     $(@holder).append @renderer.domElement
+    @scene.add @player.dae
 
 
   addPlayer: ()->
     @player = new ML.Player(@)
     @
 
-  setupListeners: ->
+
+  setupListeners: =>
     @viewer = new ML.FirstPersonViewer(@)
     @controls = new ML.KeyboardControls(@)
 
@@ -55,7 +55,7 @@ class ML.World
   render: ()=>
     @renderer.render @scene, @camera
 
-    if !@player.hasLanded()
+    if !@player.hasLanded(@)
       @player.object.position.y -= 0.25
       if @player.object.position.y > @midSector1[0] && @player.object.position.y > @midSector1[1]
         @camera.position.z -= 0.25
@@ -80,7 +80,7 @@ class ML.World
     @
 
 
-  setupCamera: ->
+  setupCamera: =>
     @camera = new THREE.PerspectiveCamera(60, (@opts.width /@opts.height), 1, 20000)
     @camera.position = {x: 0, y: 5, z: 20}
     @camera.lookAt(@player.object.position)
