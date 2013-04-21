@@ -20,7 +20,6 @@
       var rendererType = (ML.Utils.hasWebgl() && !ML.Utils.isIpad()) ? "webgl" : "canvas";
       var player = new ML.Player();
       player.loadModel(function() {
-        console.log("log");
         world = new ML.World(".viewer", rendererType, player, stats);
         world.render();
       });

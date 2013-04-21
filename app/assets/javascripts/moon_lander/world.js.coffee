@@ -42,7 +42,20 @@ class ML.World
     @viewer = new ML.FirstPersonViewer(@)
     @controls = new ML.KeyboardControls(@)
 
+    orientationCallback = (event)=>
+      a = event.alpha
+      b = event.beta
+      g = event.gamma
+      # console.log a, b, g
+
+      # if @player.object
+      #   # @player.object.rotation.z = -2.0 * g
+      #   # # @player.object.rotation.x = -2.0 * b
+
+
+    window.addEventListener 'deviceorientation', orientationCallback, false
     $(window).on("resize", @windowResizeHandler)
+
 
 
   windowResizeHandler: =>
@@ -62,10 +75,16 @@ class ML.World
       if @player.object.position.y > @midSector2[0] && @player.object.position.y > @midSector2[1]
         @camera.position.z += 0.25
 
+    else
+      if @player.object.rotation.z > -7 && @player.object.rotation.z < 7
+        console.log "you won ~!"
+
+
     @camera.lookAt(@player.object.position)
     window.requestAnimationFrame(@render)
     @stats.update()
     @
+
 
 
   setupRenderer: ->

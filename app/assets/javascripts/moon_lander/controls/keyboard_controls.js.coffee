@@ -19,3 +19,8 @@ class ML.KeyboardControls
       else if e.keyCode == 100  # right-d
         @world.player.moveRight()
 
+      else if e.keyCode == 101 # rotate right
+        @world.player.rotateRight()
+
+      else if e.keyCode == 113 # rotate left
+        @world.player.rotateLeft()

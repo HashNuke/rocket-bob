@@ -8,7 +8,7 @@ class ML.Player
 
 
   hasLanded: (world)=>
-    if @object.position.y < -25
+    if @object.position.y < -35
       return true
 
     vector  = new THREE.Vector3(0, -1, 0)
@@ -42,6 +42,14 @@ class ML.Player
   moveBackward: () ->
     return if @grounded
     @object.position.z += @moveBy
+
+  rotateLeft: () ->
+    return if @grounded
+    @object.rotation.z -= @moveBy
+
+  rotateRight: () ->
+    return if @grounded
+    @object.rotation.z += @moveBy
 
 
   loadModel: (callback)->
