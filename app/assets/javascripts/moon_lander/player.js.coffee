@@ -2,6 +2,7 @@ class ML.Player
 
   moveBy: 0.25
   grounded: false
+  model: "/assets/rocket.dae"
 
   constructor: (@world) ->
     @object = new ML.Voxel("red", 5)
