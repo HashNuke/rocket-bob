@@ -45,11 +45,11 @@ class ML.Player
 
   rotateLeft: () ->
     return if @grounded
-    @object.rotation.z -= @moveBy
+    @object.rotation.z -= 0.1
 
   rotateRight: () ->
     return if @grounded
-    @object.rotation.z += @moveBy
+    @object.rotation.z += 0.1
 
 
   loadModel: (callback)->
@@ -61,7 +61,6 @@ class ML.Player
 
     loader.load @modelUrl, (collada)=>
       @object = collada.scene
-      # skin = collada.skinins[0]
       @object.scale.x = @object.scale.y = @object.scale.z = 0.05
       @object.rotation.z = 3.14
       @object.position = { x: 0, y: 120, z: 0 }

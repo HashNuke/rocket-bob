@@ -11,17 +11,19 @@
   <script type="text/javascript">
     $(document).ready(function() {
 
-      var stats = new Stats();
-      stats.domElement.style.position = "fixed";
-      stats.domElement.style.top  = "0px";
-      stats.domElement.style["z-index"] = "100";
-      $("body").append(stats.domElement);
+      $(".play").on("click", function() {
+        var stats = new Stats();
+        stats.domElement.style.position = "fixed";
+        stats.domElement.style.top  = "0px";
+        stats.domElement.style["z-index"] = "100";
+        $("body").append(stats.domElement);
 
-      var rendererType = (ML.Utils.hasWebgl() && !ML.Utils.isIpad()) ? "webgl" : "canvas";
-      var player = new ML.Player();
-      player.loadModel(function() {
-        world = new ML.World(".viewer", rendererType, player, stats);
-        world.render();
+        var rendererType = (ML.Utils.hasWebgl() && !ML.Utils.isIpad()) ? "webgl" : "canvas";
+        var player = new ML.Player();
+        player.loadModel(function() {
+          var world = new ML.World(".viewer", rendererType, player, stats);
+          world.render();
+        });
       });
     })
   </script>
@@ -29,6 +31,22 @@
 <body>
 
   <div class="viewer"></div>
+    
+  <div class="intro">
+    <h1 class="brand">
+      Rocket Bob
+    </h1>
+    <hr/>
+    <div class="tagline">
+      Use the A,S,W,D buttons to navigate the rocket through space debris. Use the Q and E keys to rotate the rocket to land.
+    </div>
+    <div class="action-buttons">
+      <a href="#" class="play">Play the game</a>
+    </div>
+    <div class="credits">
+      <a href="http://twitter.com/rasagy">Rasagy</a>, <a href="http://twitter.com/plmrc">Paulaumi</a> and <a href="http://twitter.com/HashNuke">Akash Manohar</a>
+    </div>
+  </div>
 
 </body>
 </html>
