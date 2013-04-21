@@ -1,8 +1,8 @@
 class ML.Voxel
 
-  constructor: (@color, @size = 5)->
-    if !@color?
-      @color = {r: 0, g: 0, b: 0}
+  constructor: (@color, @size = 5, @options = {})->
+    @color = {r: 0, g: 0, b: 0} if !@color?
+
 
     return @["#{@color}Color"].apply(@, [@size])
 
@@ -14,7 +14,10 @@ class ML.Voxel
       @geometry.faces[i].materialIndex = ML.Utils.randomInt(0, @materials.length - 1)
 
     object3d = new THREE.Mesh(@geometry, new THREE.MeshFaceMaterial(@materials))
+
     object3d.name = "voxel"
+    object3d.name = @options["name"] if @options["name"]
+
     return object3d
 
 

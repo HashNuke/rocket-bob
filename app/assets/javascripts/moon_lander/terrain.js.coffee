@@ -6,7 +6,7 @@ class ML.Terrain
       @map[i] = []
       for j in [-6..6]
         @map[i][j] = 1
-        voxel = new ML.Voxel("white", 5)
+        voxel = new ML.Voxel("white", 5, {name: "destination"})
         voxel.position = { x: 0+(i*5), y: @world.basePlatformHeight, z: 0+(j*5) }
         @world.scene.add voxel
 
@@ -16,7 +16,7 @@ class ML.Terrain
 
 
     for i in [0..40]
-      voxel = new ML.Voxel("brown", 5)
+      voxel = new ML.Voxel("brown", 5, {name: "debris"})
       ML.Utils.randomInt(-12 * 5, 12 * 5)
       voxel.position =
         x: ML.Utils.randomInt(-12 * 5, 12 * 5)

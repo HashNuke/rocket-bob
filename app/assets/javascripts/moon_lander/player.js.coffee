@@ -8,13 +8,17 @@ class ML.Player
 
 
   hasLanded: (world)=>
+    if @object.position.y < -25
+      return true
+
     vector  = new THREE.Vector3(0, -1, 0)
-    vector.sub( @object.position ).normalize()
-    raycaster  = new THREE.Raycaster( @object.position, vector )
-    intersections = raycaster.intersectObjects( world.scene.children )
+    vector.sub(@object.position).normalize()
+    raycaster  = new THREE.Raycaster(@object.position, vector)
+    intersections = raycaster.intersectObjects(world.scene.children)
 
     for intersection in intersections
-      if intersection.distance < 3
+      if intersection.distance < 5 && intersection.object.name == "debris"
+        console.log "boom ~! rocket gaya"
         @grounded = true
         return true
     false
@@ -50,8 +54,8 @@ class ML.Player
     loader.load @modelUrl, (collada)=>
       @object = collada.scene
       # skin = collada.skinins[0]
-      @object.scale.x = @object.scale.y = @object.scale.z = 0.1
+      @object.scale.x = @object.scale.y = @object.scale.z = 0.05
       @object.rotation.z = 3.14
-      @object.position = { x: 0, y: 150, z: 0 }
+      @object.position = { x: 0, y: 120, z: 0 }
       @object.updateMatrix()
       @callback()
