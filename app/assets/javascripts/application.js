@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require three
+//= require ColladaLoader
 //= require stats.min
 //= require_self
 //= require moon_lander/moon_lander
