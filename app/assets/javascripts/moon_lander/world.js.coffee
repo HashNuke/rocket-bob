@@ -30,7 +30,7 @@ class ML.World
 
     new ML.Terrain(@)
     $(@holder).append @renderer.domElement
-    @scene.add @player.dae
+    @scene.add @player.object
 
 
   addPlayer: ()->

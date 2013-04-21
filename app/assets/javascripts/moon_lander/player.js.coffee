@@ -5,9 +5,6 @@ class ML.Player
   modelUrl: "/assets/rocket.dae"
 
   constructor: () ->
-    # @object = new ML.Voxel("red", 5)
-    # @object.position = { x: 0, y: @world.secondPlatformHeight, z: 0 }
-    # @world.scene.add @object
 
 
   hasLanded: (world)=>
@@ -47,9 +44,14 @@ class ML.Player
     loader = new THREE.ColladaLoader()
     loader.options.convertUpAxis = true
     @callback = callback
+    # @object = new ML.Voxel("red", 5)
+    # @object.position = { x: 0, y: 100, z: 0 }
+
     loader.load @modelUrl, (collada)=>
       @object = collada.scene
-      skin = collada.skins[0]
-      @object.scale.x = @object.scale.y = @object.scale.z = 0.002
+      # skin = collada.skinins[0]
+      @object.scale.x = @object.scale.y = @object.scale.z = 0.1
+      @object.rotation.z = 3.14
+      @object.position = { x: 0, y: 150, z: 0 }
       @object.updateMatrix()
       @callback()
