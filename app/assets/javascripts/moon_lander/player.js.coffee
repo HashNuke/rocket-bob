@@ -18,7 +18,10 @@ class ML.Player
 
     for intersection in intersections
       if intersection.distance < 5 && intersection.object.name == "debris"
-        console.log "boom ~! rocket gaya"
+        $(".viewer").empty()
+        $(".intro").show()
+        $(".lost").show()
+        $(".won").hide()
         @grounded = true
         return true
     false

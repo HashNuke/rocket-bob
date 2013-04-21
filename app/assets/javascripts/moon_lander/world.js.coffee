@@ -74,17 +74,20 @@ class ML.World
         @camera.position.z -= 0.25
       if @player.object.position.y > @midSector2[0] && @player.object.position.y > @midSector2[1]
         @camera.position.z += 0.25
-
     else
+      console.log "has landed"
+      $(".intro").show()
       if @player.object.rotation.z > -7 && @player.object.rotation.z < 7
-        console.log "you won ~!"
-
+        $(".won").show()
+        $(".lost").hide()
+      else
+        $(".lost").show()
+        $(".won").hide()
 
     @camera.lookAt(@player.object.position)
     window.requestAnimationFrame(@render)
     @stats.update()
     @
-
 
 
   setupRenderer: ->
@@ -94,7 +97,7 @@ class ML.World
       @renderer = new THREE.CanvasRenderer({antialias: true})
 
     @renderer.setSize @opts.width, @opts.height
-    @renderer.setClearColorHex 0x222222, 1.0
+    @renderer.setClearColorHex 0x220044, 1.0
     @renderer.clear()
     @
 

@@ -9,9 +9,11 @@
   <%= yield :head if content_for? :head %>
 
   <script type="text/javascript">
+
     $(document).ready(function() {
 
       $(".play").on("click", function() {
+        $(".intro, .won, .lost").hide();
         var stats = new Stats();
         stats.domElement.style.position = "fixed";
         stats.domElement.style.top  = "0px";
@@ -31,12 +33,16 @@
 <body>
 
   <div class="viewer"></div>
-    
+
   <div class="intro">
     <h1 class="brand">
       Rocket Bob
     </h1>
     <hr/>
+
+    <div class="won">You won ~!</div>
+    <div class="lost">You lost ~!</div>
+
     <div class="tagline">
       Use the A,S,W,D buttons to navigate the rocket through space debris. Use the Q and E keys to rotate the rocket to land.
     </div>
