@@ -75,7 +75,7 @@ class ML.World
       if @player.object.position.y > @midSector2[0] && @player.object.position.y > @midSector2[1]
         @camera.position.z += 0.25
     else
-      console.log "has landed"
+      $(".viewer").empty()
       $(".intro").show()
       if @player.object.rotation.z > -7 && @player.object.rotation.z < 7
         $(".won").show()
