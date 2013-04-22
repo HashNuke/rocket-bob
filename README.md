@@ -4,6 +4,7 @@ Game to jump between planets while avoiding space debris and making a safe landi
 
 **Demo link** - <http://rocket-bob.herokuapp.com>
 
+![Screenshot](screenshot.png)
 
 ### Requirements
 
