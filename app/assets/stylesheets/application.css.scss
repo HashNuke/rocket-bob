@@ -69,4 +69,10 @@ body {
   }
 }
 
-.lost, .won { display: none; }
+.lost, .won {
+  display: none;
+  text-align: center;
+  border: 1px solid #FD9;
+  background: #FEC;
+}
+
