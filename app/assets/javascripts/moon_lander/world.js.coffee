@@ -23,11 +23,10 @@ class ML.World
 
     @scene = new THREE.Scene()
     @clock = new THREE.Clock()
+    @addPlayer(@onPlayerLoad)
 
 
-
-    @player = new ML.Player(@)
-    @player.loadModel =>
+  onPlayerLoad: =>
       @setupRenderer()
       @setupCamera()
       @setupListeners()
@@ -39,8 +38,9 @@ class ML.World
       @render()
 
 
-  addPlayer: ()->
+  addPlayer: (callback)=>
     @player = new ML.Player(@)
+    @player.loadModel(callback)
     @
 
 
