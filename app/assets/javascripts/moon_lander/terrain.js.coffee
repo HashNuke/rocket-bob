@@ -9,7 +9,7 @@ class ML.Terrain
     for i in [0...geometry.faces.length]
       geometry.faces[i].materialIndex = ML.Utils.randomInt(0, materials.length - 1)
 
-    object3d = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials))
+    object3d = new THREE.Mesh geometry, new THREE.MeshFaceMaterial(materials)
     object3d.rotation.x = -Math.PI/2
     object3d.position = {x: 0, y: 0, z: 0}
     @world.scene.add object3d

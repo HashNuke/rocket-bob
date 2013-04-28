@@ -3,8 +3,7 @@ class ML.World
     width:  if window? then window.innerWidth  else 640
     height: if window? then window.innerHeight else 480
 
-  basePlatformHeight:   -50
-  secondPlatformHeight: 100
+  cameraOffsets: {x: 0, y: 5, z: 10}
 
   rendererType: "webgl"
 
@@ -24,6 +23,13 @@ class ML.World
 
       new ML.Terrain(@)
       $(@holder).append @renderer.domElement
+
+      directionalLight1 = new THREE.DirectionalLight( 0xFFFFFF, 1 )
+      directionalLight1.position.set( 0.5, 1, 0.5 )
+      @scene.add directionalLight1
+      directionalLight2 = new THREE.DirectionalLight( 0xFFFFFF, 1 )
+      directionalLight2.position.set( -0.5, -1, -0.5 )
+      @scene.add directionalLight2
 
       @scene.add @player.object
       @render()
@@ -49,7 +55,6 @@ class ML.World
       #   # @player.object.rotation.z = -2.0 * g
       #   # # @player.object.rotation.x = -2.0 * b
 
-
     window.addEventListener 'deviceorientation', orientationCallback, false
     $(window).on("resize", @windowResizeHandler)
 
@@ -61,9 +66,12 @@ class ML.World
     @renderer.setSize($(@holder).width(), window.innerHeight)
 
 
-
   render: ()=>
     @renderer.render @scene, @camera
+    @camera.position =
+      x: @player.object.position.x + @cameraOffsets["x"]
+      y: @player.object.position.y + @cameraOffsets["y"]
+      z: @player.object.position.z + @cameraOffsets["z"]
 
     @camera.lookAt(@player.object.position)
     window.requestAnimationFrame(@render)
@@ -78,17 +86,12 @@ class ML.World
       @renderer = new THREE.CanvasRenderer({antialias: true})
 
     @renderer.setSize @opts.width, @opts.height
-    @renderer.setClearColorHex 0x220044, 1.0
+    @renderer.setClearColorHex 0x333333, 1.0
     @renderer.clear()
     @
 
 
   setupCamera: =>
-    @camera = new THREE.PerspectiveCamera(60, (@opts.width /@opts.height), 1, 20000)
-    @camera.position = {x: 0, y: 5, z: 20}
-    @camera.lookAt(@player.object.position)
+    @camera = new THREE.PerspectiveCamera(60, (@opts.width / @opts.height), 1, 20000)
+
     @
-
-
-  updateScene: ()->
-    @camera.lookAt(@player.object.position)
