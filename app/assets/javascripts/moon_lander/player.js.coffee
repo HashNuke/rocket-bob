@@ -2,7 +2,7 @@ class ML.Player
 
   moveBy: 0.25
   grounded: false
-  modelUrl: "/assets/spaceship.js"
+  modelUrl: "/assets/spaceship.dae"
 
   constructor: (@world) ->
 
@@ -53,10 +53,14 @@ class ML.Player
 
 
   loadModel: (callback)->
-    loader = new THREE.JSONLoader()
+    loader = new THREE.ColladaLoader()
+    loader.options.centerGeometry = true
+    loader.options.convertUpAxis  = true
     @callback = callback
 
-    loader.load @modelUrl, (@object)=>
-      # @object.scale.x  = @object.scale.y = @object.scale.z = 1
-      @object.position = { x: 0, y: 1, z: 0 }
+    loader.load @modelUrl, (model)=>
+      @object = model.scene
+      @object.scale.x = @object.scale.y = @object.scale.z = 0.5
+      @object.position = { x: 0, y: 0, z: 0 }
+      @object.updateMatrix()
       @callback()

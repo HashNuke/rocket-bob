@@ -24,10 +24,10 @@ class ML.World
       new ML.Terrain(@)
       $(@holder).append @renderer.domElement
 
-      directionalLight1 = new THREE.DirectionalLight( 0xFFFFFF, 1 )
+      directionalLight1 = new THREE.DirectionalLight( 0x220044, 1 )
       directionalLight1.position.set( 0.5, 1, 0.5 )
       @scene.add directionalLight1
-      directionalLight2 = new THREE.DirectionalLight( 0xFFFFFF, 1 )
+      directionalLight2 = new THREE.DirectionalLight( 0x220044, 1 )
       directionalLight2.position.set( -0.5, -1, -0.5 )
       @scene.add directionalLight2
 
@@ -93,5 +93,10 @@ class ML.World
 
   setupCamera: =>
     @camera = new THREE.PerspectiveCamera(60, (@opts.width / @opts.height), 1, 20000)
+    @camera.position =
+      x: @player.object.position.x + @cameraOffsets["x"]
+      y: @player.object.position.y + @cameraOffsets["y"]
+      z: @player.object.position.z + @cameraOffsets["z"]
 
+    @camera.lookAt(@player.object.position)
     @
