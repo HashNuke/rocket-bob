@@ -62,7 +62,6 @@ class ML.Player
     loader.load @modelUrl, (collada)=>
       @object = collada.scene
       @object.scale.x = @object.scale.y = @object.scale.z = 0.05
-      @object.rotation.z = 3.14
-      @object.position = { x: 0, y: 120, z: 0 }
+      @object.position = { x: 0, y: 0, z: 0 }
       @object.updateMatrix()
       @callback()
