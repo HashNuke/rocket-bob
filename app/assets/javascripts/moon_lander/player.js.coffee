@@ -18,10 +18,7 @@ class ML.Player
 
     for intersection in intersections
       if intersection.distance < 5 && intersection.object.name == "debris"
-        $(".viewer").empty()
-        $(".intro").show()
-        $(".lost").show()
-        $(".won").hide()
+        # TODO intersection with debris
         @grounded = true
         return true
     false

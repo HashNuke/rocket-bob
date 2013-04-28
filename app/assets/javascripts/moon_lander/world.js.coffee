@@ -68,21 +68,15 @@ class ML.World
   render: ()=>
     @renderer.render @scene, @camera
 
-    if !@player.hasLanded(@)
+    if @player.hasLanded(@)
+      # TODO do something
+      1 + 1
+    else
       @player.object.position.y -= 0.25
       if @player.object.position.y > @midSector1[0] && @player.object.position.y > @midSector1[1]
         @camera.position.z -= 0.25
       if @player.object.position.y > @midSector2[0] && @player.object.position.y > @midSector2[1]
         @camera.position.z += 0.25
-    else
-      $(".viewer").empty()
-      $(".intro").show()
-      if @player.object.rotation.z > -7 && @player.object.rotation.z < 7
-        $(".won").show()
-        $(".lost").hide()
-      else
-        $(".lost").show()
-        $(".won").hide()
 
     @camera.lookAt(@player.object.position)
     window.requestAnimationFrame(@render)
