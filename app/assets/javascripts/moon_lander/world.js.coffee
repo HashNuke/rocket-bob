@@ -68,6 +68,8 @@ class ML.World
 
   render: ()=>
     @renderer.render @scene, @camera
+    @player.updatePosition()
+
     @camera.position =
       x: @player.object.position.x + @cameraOffsets["x"]
       y: @player.object.position.y + @cameraOffsets["y"]

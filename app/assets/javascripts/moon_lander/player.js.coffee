@@ -1,15 +1,16 @@
 class ML.Player
 
-  moveBy: 0.25
+  moveBy:   0.25
   grounded: false
-  modelUrl: "/assets/spaceship.dae"
+  modelUrl:      "/assets/spaceship.dae"
+  movementStack: {x: 0, y: 0, z: 0}
+
 
   constructor: (@world) ->
 
 
   hasLanded: ()=>
-    if @object.position.y < -35
-      return true
+    return true if @object.position.y < -35
 
     vector  = new THREE.Vector3(0, -1, 0)
     vector.sub(@object.position).normalize()
@@ -24,24 +25,34 @@ class ML.Player
     false
 
 
+  updatePosition: =>
+    @object.position =
+     x: @object.position.x + @movementStack.x
+     y: @object.position.y + @movementStack.y
+     z: @object.position.z + @movementStack.z
+
+
+  stopMovement: ()->
+    @movementStack = {x: 0, y: 0, z: 0}
+
+
   moveRight: () ->
     return if @grounded
-    @object.position.x += @moveBy
+    @movementStack = {x: @moveBy, y: 0, z: 0}
 
 
   moveLeft: () ->
     return if @grounded
-    @object.position.x -= @moveBy
+    @movementStack = {x: -@moveBy, y: 0, z: 0}
 
 
   moveForward: () ->
     return if @grounded
-    @object.position.z -= @moveBy
-
+    @movementStack = {x: 0, y: 0, z: -@moveBy}
 
   moveBackward: () ->
     return if @grounded
-    @object.position.z += @moveBy
+    @movementStack = {x: 0, y: 0, z: @moveBy}
 
   rotateLeft: () ->
     return if @grounded
