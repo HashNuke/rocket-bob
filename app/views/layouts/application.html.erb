@@ -18,7 +18,7 @@
       $("body").append(stats.domElement);
 
       var rendererType = (ML.Utils.hasWebgl() && !ML.Utils.isIpad()) ? "webgl" : "canvas";
-      var world = new ML.World(".viewer", rendererType, stats);
+      world = new ML.World(".viewer", rendererType, stats);
     })
 
   </script>
