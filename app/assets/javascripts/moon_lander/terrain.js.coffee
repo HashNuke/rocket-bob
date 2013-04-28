@@ -1,25 +1,15 @@
 class ML.Terrain
 
   constructor: (@world)->
-    @map = []
-    for i in [-12..12]
-      @map[i] = []
-      for j in [-6..6]
-        @map[i][j] = 1
-        voxel = new ML.Voxel("white", 5, {name: "destination"})
-        voxel.position = { x: 0+(i*5), y: @world.basePlatformHeight, z: 0+(j*5) }
-        @world.scene.add voxel
+    @materials = for color in [0xEBEBEB, 0xF0F0F0, 0xF5F5F5]
+      materialOptions = { color: color }
+      new THREE.MeshBasicMaterial(materialOptions)
+    @geometry = new THREE.PlaneGeometry(50, 50, 25, 25)
 
-        voxel = new ML.Voxel("green", 5)
-        voxel.position = { x: 0+(i*5), y: @world.secondPlatformHeight, z: 0+(j*5) }
-        @world.scene.add voxel
+    for i in [0...@geometry.faces.length]
+      @geometry.faces[i].materialIndex = ML.Utils.randomInt(0, @materials.length - 1)
 
-
-    for i in [0..40]
-      voxel = new ML.Voxel("brown", 5, {name: "debris"})
-      ML.Utils.randomInt(-12 * 5, 12 * 5)
-      voxel.position =
-        x: ML.Utils.randomInt(-12 * 5, 12 * 5)
-        y: ML.Utils.randomInt(@world.basePlatformHeight, @world.secondPlatformHeight)
-        z: ML.Utils.randomInt(-6 * 5,  6 * 5)
-      @world.scene.add voxel
+    object3d = new THREE.Mesh(@geometry, new THREE.MeshFaceMaterial(@materials))
+    object3d.rotation.x = -Math.PI/2
+    object3d.position = {x: 0, y: 0, z: 0}
+    @world.scene.add object3d

@@ -9,15 +9,6 @@ class ML.World
   rendererType: "webgl"
 
   constructor: (@holder, @rendererType, @stats)->
-    @midSector1 = [
-      @secondPlatformHeight - (2 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6),
-      @secondPlatformHeight - (3 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6)
-    ]
-
-    @midSector2 = [
-      @secondPlatformHeight - (3 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6),
-      @secondPlatformHeight - (4 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6)
-    ]
 
     @opts.width = $(@holder).width()
 
@@ -73,16 +64,6 @@ class ML.World
 
   render: ()=>
     @renderer.render @scene, @camera
-
-    if @player.hasLanded()
-      # TODO do something
-      1 + 1
-    else
-      @player.object.position.y -= 0.25
-      if @player.object.position.y > @midSector1[0] && @player.object.position.y > @midSector1[1]
-        @camera.position.z -= 0.25
-      if @player.object.position.y > @midSector2[0] && @player.object.position.y > @midSector2[1]
-        @camera.position.z += 0.25
 
     @camera.lookAt(@player.object.position)
     window.requestAnimationFrame(@render)
