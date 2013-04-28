@@ -8,7 +8,7 @@ class ML.World
 
   rendererType: "webgl"
 
-  constructor: (@holder, @rendererType, @player, @stats)->
+  constructor: (@holder, @rendererType, @stats)->
     @midSector1 = [
       @secondPlatformHeight - (2 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6),
       @secondPlatformHeight - (3 * (@secondPlatformHeight + Math.abs(@basePlatformHeight))/6)
@@ -24,13 +24,19 @@ class ML.World
     @scene = new THREE.Scene()
     @clock = new THREE.Clock()
 
-    @setupRenderer()
-    @setupCamera()
-    @setupListeners()
 
-    new ML.Terrain(@)
-    $(@holder).append @renderer.domElement
-    @scene.add @player.object
+
+    @player = new ML.Player(@)
+    @player.loadModel =>
+      @setupRenderer()
+      @setupCamera()
+      @setupListeners()
+
+      new ML.Terrain(@)
+      $(@holder).append @renderer.domElement
+
+      @scene.add @player.object
+      @render()
 
 
   addPlayer: ()->
@@ -68,7 +74,7 @@ class ML.World
   render: ()=>
     @renderer.render @scene, @camera
 
-    if @player.hasLanded(@)
+    if @player.hasLanded()
       # TODO do something
       1 + 1
     else
